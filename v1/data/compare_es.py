@@ -16,7 +16,7 @@ wavelength=numpy.linspace(0,wavelengthEnd-wavelengthStart,wavelengthEnd-waveleng
 mk_template=numpy.matrix(numpy.loadtxt("es_flux.dat"))
 
 
-for i in range(0,172):
+for i in range(0,428):
 	print i
 	filename="../result/"+str(i)+"/templatespectra.txt"
 	if os.path.exists(filename):

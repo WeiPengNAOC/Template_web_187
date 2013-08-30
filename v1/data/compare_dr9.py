@@ -9,26 +9,38 @@ from scipy import interpolate
 import numpy
 import matplotlib.pyplot as plt
 import pyfits
-
+import function
 hdulist=pyfits.open("spEigenStar-55734.fits")
 wavelengthStart=3800
 wavelengthEnd=9000
 wavelength=numpy.linspace(0,wavelengthEnd-wavelengthStart,wavelengthEnd-wavelengthStart+1)+wavelengthStart
 
-dr9_template=numpy.matrix(numpy.loadtxt("dr9_flux.dat"))
 
 
-for i in range(0,172):
+
+for i in range(0,300):
+	dr9_template=numpy.matrix(numpy.loadtxt("dr9_flux.dat"))
 	print i
 	filename="../result/"+str(i)+"/templatespectra.txt"
 	if os.path.exists(filename):
-		flux=numpy.matrix(numpy.loadtxt(filename))
-		flux=numpy.matrix(flux/numpy.sqrt(numpy.sum(flux*flux.getT())))
+		flux=numpy.matrix(numpy.loadtxt(filename)).getT()
+		#flux=numpy.matrix(flux/numpy.sqrt(numpy.sum(flux*flux.getT())))
 		dis=numpy.ones(len(dr9_template))
 		
 		for j in range(len(dr9_template)):
-			dis[j]=numpy.sqrt(numpy.sum(numpy.power(flux-dr9_template[j],2)))
-			#dis[j]=1-flux*mk_template[j].getT()
+			
+			#dis[j]=numpy.sqrt(numpy.sum(numpy.power((flux-dr9_template[j]),2)))
+			#dis[j]=1-flux*dr9_template[j].getT()
+			fluxA=numpy.matrix(dr9_template[j,:]).getT()
+			p=numpy.polyfit(wavelength,fluxA/flux,4)
+			
+			wp=numpy.polyval(p,wavelength)
+			wp=numpy.matrix(wp).getT()
+			
+			#print flux.shape,fluxA.shape,wp.shape
+			fluxA=fluxA/wp
+			dis[j]=1-function.sim(flux,fluxA)
+			dr9_template[j]=fluxA[:,:].getT()
 			
 		index=numpy.argsort(dis)
 		
@@ -36,8 +48,8 @@ for i in range(0,172):
 		#print index.shape
 		plt.figure(num=None, figsize=(10, 10), dpi=100, facecolor='w', edgecolor='k')
 		ax=plt.subplot(5,1,1)
-		ax.plot(wavelength,flux.getT(),'k')
-		ax.plot(wavelength,dr9_template[index[0],:].getT(),'r--')
+		ax.plot(wavelength,flux,'k')
+		#ax.plot(wavelength,c,'r--')
 		plt.setp( ax.get_yticklabels(), visible=False)
 		#plt.setp( ax.get_xticklabels(), visible=False)
 		#plt.subplots_adjust(hspace=0.000)  
@@ -53,7 +65,7 @@ for i in range(0,172):
 				ax=plt.subplot(5,len(wa),(j+1)*len(wa)+k+1)	
 				cc=numpy.logical_and(wavelength>wa[k]-width[k],wavelength<wa[k]+width[k])
 				#print wa[k],width[k]
-				ax.plot(wavelength[cc],flux.getT()[cc],'k')
+				ax.plot(wavelength[cc],flux[cc],'k')
 				ax.plot(wavelength[cc],dr9_template[index[j],:].getT()[cc],'r--')
 				#plt.ylim([numpy.min(numpy.min(flux),numpy.min(mk_template[index[j]])),numpy.max(numpy.max(flux),numpy.max(mk_template[index[j]]))])
 			
