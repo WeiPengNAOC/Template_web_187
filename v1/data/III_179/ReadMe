@@ -1,0 +1,78 @@
+III/179            Southern MK Standards 5800-10200A    (Danks+ 1994)
+================================================================================
+An Atlas of Southern MK Standards from 5800 to 10,200 Angstroms
+     Danks A.C., Dennefeld M.
+    <Pub. Astron. Soc. Pac. 106, 382 (1994)>
+    =1994PASP..106..382D
+================================================================================
+ADC_Keywords: Stars, standard; Spectra, red
+
+Description:
+    Spectra are presented for MK standards in the wavelength range
+    580-1020nm. The stars cover the normal spectral types O to M and
+    luminosity types I, III, and V. In addition, a small number of
+    peculiar stars are included. The data are in 137 FITS files, in
+    the "fits" subdirectory.
+
+    The list of the 137 stars is included in the "stars.dat" file;
+    note that the list is not identical to the stars listed in Table1
+    of the paper.
+
+Introduction:
+    The projected slit width along the dispersion was about 4{AA},
+    slightly less than 2 pixels. The data are corrected for atmospheric
+    extinction. The fluxes are relative; to convert to "absolute" the
+    values should be multiplied by 10-13erg/cm2/s/{AA} (10-15W/m2/nm)
+    but because not all of the flux was collected by the slit, these
+    values will be about 15% low with the factor depending on the seeing.
+
+    Some features in the spectrum have been introduced by the
+    instrumentation. The most notable feature is a small emission
+    peak near the NaI 5896{AA} absorption line.
+
+    The data are in FITS format. The FITS header does not include the
+    units, which are described above.
+
+    The spectral types and luminosity classes given in the published paper
+    supersede those given in the FITS headers.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName   Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe         80        .   This file
+stars.dat      68      137  *List of stars present in the "fits" subdirectory
+fits/*         .       137   Subdirectory containing the 137 FITS spectra
+-------------------------------------------------------------------------------
+Note on stars.dat: the file contains in addition 7 blank lines which
+     separate the spectral types. This list, close to Table 1 of the
+     paper, is however not identical: some stars listed in the paper
+     are not in the file, and the file contains a few additional stars
+     not listed in the paper.
+-------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: stars.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  6  I6    ---     HD        HD number (Cat. III/135)
+   8- 20  A13   ---     Sp        MK Spectral Type (from the paper)
+  22- 23  I2    h       RAh       Right Ascension J2000 (hours) (from SIMBAD)
+  25- 26  I2    min     RAm       Right Ascension J2000 (minutes)
+  28- 31  F4.1  s       RAs       Right Ascension J2000 (seconds)
+      33  A1    ---     DE-       Declination J2000 (sign) (from SIMBAD)
+  34- 35  I2    deg     DEd       Declination J2000 (degrees) (from SIMBAD)
+  37- 38  I2    arcmin  DEm       Declination J2000 (minutes)
+  40- 41  I2    arcsec  DEs       Declination J2000 (seconds)
+  44- 48  F5.2  mag     Bmag      Johnson B magnitude (from SIMBAD)
+  50- 54  F5.2  mag     Vmag      Johnson V magnitude (from SIMBAD)
+  57- 68  A12   ---     FITSfile  File name in "fits" subdirectory
+-------------------------------------------------------------------------------
+
+History:
+  * The spectra were received at ADC (Paul Kuin) in December 1994.
+  * 02-Nov-2003: the file "stars.dat" made from the FITS headers wad added.
+    The positions and magnitudes were extracted from SIMBAD, and the spectral
+    classes were reported from the Table 1 of the paper.
+================================================================================
+(End)                                   Francois Ochsenbein [CDS]    02-Nov-2003
